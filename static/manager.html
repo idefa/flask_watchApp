@@ -1,0 +1,837 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title>运维平台</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="Thu, 19 Nov 1900 08:52:00 GMT">
+    <link rel="shortcut icon" href="/static/images/icons/favicon.ico">
+    <link rel="apple-touch-icon" href="/static/images/icons/favicon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/static/images/icons/favicon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/static/images/icons/favicon-114x114.png">
+    <!--Loading bootstrap css-->
+    <link type="text/css" rel="stylesheet" href="/static/css/fonts.css?v=1">
+    <link type="text/css" rel="stylesheet"
+          href="/static/vendors/jquery-ui-1.10.4.custom/css/ui-lightness/jquery-ui-1.10.4.custom.min.css">
+    <link type="text/css" rel="stylesheet" href="/static/vendors/font-awesome/css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="/static/vendors/bootstrap/css/bootstrap.min.css">
+    <!--LOADING STYLESHEET FOR PAGE-->
+    <link type="text/css" rel="stylesheet" href="/static/vendors/intro.js/introjs.css">
+    <link type="text/css" rel="stylesheet" href="/static/vendors/calendar/zabuto_calendar.min.css">
+    <link type="text/css" rel="stylesheet" href="/static/vendors/sco.message/sco.message.css">
+    <link type="text/css" rel="stylesheet" href="/static/vendors/intro.js/introjs.css">
+    <!--Loading style vendors-->
+    <link type="text/css" rel="stylesheet" href="/static/vendors/animate.css/animate.css">
+    <link type="text/css" rel="stylesheet" href="/static/vendors/jquery-pace/pace.css">
+    <link type="text/css" rel="stylesheet" href="/static/vendors/iCheck/skins/all.css">
+    <link type="text/css" rel="stylesheet" href="/static/vendors/jquery-notific8/jquery.notific8.min.css">
+    <link type="text/css" rel="stylesheet" href="/static/vendors/bootstrap-daterangepicker/daterangepicker-bs3.css">
+    <!--Loading style-->
+    <link type="text/css" rel="stylesheet" href="/static/css/themes/style1/orange-blue.css?v=1" class="default-style">
+    <link type="text/css" rel="stylesheet" href="/static/css/themes/style1/orange-blue.css?v=1" id="theme-change"
+          class="style-change color-change">
+    <link type="text/css" rel="stylesheet" href="/static/css/style-responsive.css">
+    <style>
+        #mainTab {
+            white-space: nowrap;
+            overflow: hidden;
+            line-height: 40px;
+            height: 40px;
+        }
+
+        #mainTab .closeable-tabs > li {
+            width: 120px;
+            display: inline-block;
+        }
+
+        #mainTab .closeable-tabs li span.icon {
+            margin-right: 5px;
+        }
+
+        #mainTab .closeable-tabs > li.prev-button {
+            width: auto;
+            display: inline-block;
+        }
+
+        #mainTab .closeable-tabs > li.next-button {
+            width: auto;
+            display: inline-block;
+        }
+    </style>
+    <style>
+        table th, table td {
+            font-size: 11px;
+            white-space: nowrap;
+        }
+
+        .subtext {
+            margin-right: 2px;
+        }
+
+        .status {
+            display: block;
+            float: right;
+            list-style: none;
+        }
+
+        .status li {
+            float: left;
+            margin-right: 10px;
+            display: inline-block;
+            height: 22px;
+            line-height: 21px;
+        }
+
+        .status li span {
+            display: inline-block;
+            height: 21px;
+            width: 30px;
+            border: 1px solid #ddd;
+        }
+
+        .normal {
+            background: #58A554;
+            color: #EFE1D8;
+        }
+
+        .error {
+            background: #E26168;
+        }
+
+        .error a {
+            color: #fff;
+        }
+
+        .notwork {
+            background: #dddddd;
+        }
+
+        .view {
+            background: #ffffff;
+        }
+
+        .network {
+            background: #E26168;
+            color: #fff;
+        }
+
+        .network a {
+            color: #fff;
+        }
+
+        .dropdown-menu {
+            width: 400px;
+            line-height: 21px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="app">
+    <!--<div class="news-ticker bg-orange">
+        <div class="container">
+            <ul id="news-ticker-content" class="list-unstyled mbn">
+                <li>
+                    <a href='http://madmin.swlabs.co/' target='_blank'>这是HTML版本的模板，点击访问AngularJS版本</a>
+                </li>
+            </ul><a id="news-ticker-close" href="javascript:;"><i class="fa fa-times"></i></a>
+        </div>
+    </div>-->
+    <!--BEGIN BACK TO TOP--><a id="totop" href="#"><i class="fa fa-angle-up"></i></a>
+    <!--END BACK TO TOP-->
+    <!--BEGIN TOPBAR-->
+    <div id="header-topbar-option-demo" class="page-header-topbar">
+        <nav id="topbar" role="navigation" style="margin-bottom: 0; z-index: 2;"
+             class="navbar navbar-default navbar-static-top">
+            <div class="navbar-header">
+                <button type="button" data-toggle="collapse" data-target=".sidebar-collapse" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
+                        class="icon-bar"></span><span class="icon-bar"></span>
+                </button>
+                <a id="logo" href="index.html" class="navbar-brand"><span class="fa fa-rocket"></span><span
+                        class="logo-text">运维平台</span><span style="display: none" class="logo-text-icon">µ</span></a>
+            </div>
+            <div class="topbar-main">
+                <a id="menu-toggle" href="#" class="hidden-xs"><i class="fa fa-bars"></i></a>
+                <ul class="nav navbar-nav    ">
+                    <li class="active">
+                        <a href="index.html">控制面板</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle">Layouts &nbsp;<i
+                                class="fa fa-angle-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="layout-left-sidebar.html">Left Sidebar</a>
+                            </li>
+                            <li>
+                                <a href="layout-right-sidebar.html">Right Sidebar</a>
+                            </li>
+                            <li>
+                                <a href="layout-left-sidebar-collapsed.html">Left Sidebar Collasped</a>
+                            </li>
+                            <li>
+                                <a href="layout-right-sidebar-collapsed.html">Right Sidebar Collasped</a>
+                            </li>
+                            <li class="dropdown-submenu">
+                                <a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle">More Options</a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="#">Second level link</a>
+                                    </li>
+                                    <li class="dropdown-submenu">
+                                        <a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle">More
+                                            Options</a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="#">Third level link</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Third level link</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Third level link</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Third level link</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Third level link</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">Second level link</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mega-menu-dropdown">
+                        <a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle">UI Elements &nbsp;<i
+                                class="fa fa-angle-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <div class="mega-menu-content">
+                                    <div class="row">
+                                        <ul class="col-md-4 mega-menu-submenu">
+                                            <li>
+                                                <h3>Neque porro quisquam</h3>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-angle-right"></i>Lorem ipsum dolor sit amet</a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-angle-right"></i>Consectetur adipisicing
+                                                    elit</a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-angle-right"></i>Sed ut perspiciatis unde
+                                                    omnis</a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-angle-right"></i>At vero eos et accusamus et
+                                                    iusto</a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-angle-right"></i>Nam libero tempore cum
+                                                    soluta</a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-angle-right"></i>Et harum quidem rerum
+                                                    facilis est</a>
+                                            </li>
+                                        </ul>
+                                        <ul class="col-md-4 mega-menu-submenu">
+                                            <li>
+                                                <h3>Neque porro quisquam</h3>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-angle-right"></i>Lorem ipsum dolor sit amet</a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-angle-right"></i>Consectetur adipisicing
+                                                    elit</a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-angle-right"></i>Sed ut perspiciatis unde
+                                                    omnis</a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-angle-right"></i>At vero eos et accusamus et
+                                                    iusto</a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-angle-right"></i>Nam libero tempore cum
+                                                    soluta</a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-angle-right"></i>Et harum quidem rerum
+                                                    facilis est</a>
+                                            </li>
+                                        </ul>
+                                        <ul class="col-md-4 mega-menu-submenu">
+                                            <li>
+                                                <h3>Neque porro quisquam</h3>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-angle-right"></i>Lorem ipsum dolor sit amet</a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-angle-right"></i>Consectetur adipisicing
+                                                    elit</a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-angle-right"></i>Sed ut perspiciatis unde
+                                                    omnis</a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-angle-right"></i>At vero eos et accusamus et
+                                                    iusto</a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-angle-right"></i>Nam libero tempore cum
+                                                    soluta</a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-angle-right"></i>Et harum quidem rerum
+                                                    facilis est</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mega-menu-dropdown mega-menu-full">
+                        <a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle">
+                            Extras
+                            &nbsp;<i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <div class="mega-menu-content">
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <ul class="col-md-4 mega-menu-submenu">
+                                                <li>
+                                                    <h3>Neque porro quisquam</h3>
+                                                </li>
+                                                <li>
+                                                    <a href="#"><i class="fa fa-angle-right"></i>Lorem ipsum dolor sit
+                                                        amet</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#"><i class="fa fa-angle-right"></i>Consectetur adipisicing
+                                                        elit</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#"><i class="fa fa-angle-right"></i>Sed ut perspiciatis
+                                                        unde omnis</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#"><i class="fa fa-angle-right"></i>At vero eos et
+                                                        accusamus et iusto</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#"><i class="fa fa-angle-right"></i>Nam libero tempore cum
+                                                        soluta</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#"><i class="fa fa-angle-right"></i>Et harum quidem rerum
+                                                        facilis est</a>
+                                                </li>
+                                            </ul>
+                                            <ul class="col-md-4 mega-menu-submenu">
+                                                <li>
+                                                    <h3>Neque porro quisquam</h3>
+                                                </li>
+                                                <li>
+                                                    <a href="#"><i class="fa fa-angle-right"></i>Lorem ipsum dolor sit
+                                                        amet</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#"><i class="fa fa-angle-right"></i>Consectetur adipisicing
+                                                        elit</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#"><i class="fa fa-angle-right"></i>Sed ut perspiciatis
+                                                        unde omnis</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#"><i class="fa fa-angle-right"></i>At vero eos et
+                                                        accusamus et iusto</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#"><i class="fa fa-angle-right"></i>Nam libero tempore cum
+                                                        soluta</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#"><i class="fa fa-angle-right"></i>Et harum quidem rerum
+                                                        facilis est</a>
+                                                </li>
+                                            </ul>
+                                            <ul class="col-md-4 mega-menu-submenu">
+                                                <li>
+                                                    <h3>Neque porro quisquam</h3>
+                                                </li>
+                                                <li>
+                                                    <a href="#"><i class="fa fa-angle-right"></i>Lorem ipsum dolor sit
+                                                        amet</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#"><i class="fa fa-angle-right"></i>Consectetur adipisicing
+                                                        elit</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#"><i class="fa fa-angle-right"></i>Sed ut perspiciatis
+                                                        unde omnis</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#"><i class="fa fa-angle-right"></i>At vero eos et
+                                                        accusamus et iusto</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#"><i class="fa fa-angle-right"></i>Nam libero tempore cum
+                                                        soluta</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#"><i class="fa fa-angle-right"></i>Et harum quidem rerum
+                                                        facilis est</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-5 document-demo">
+                                            <ul class="col-md-4 mega-menu-submenu">
+                                                <li>
+                                                    <a href="#"><i
+                                                            class="fa fa-info-circle"></i><span>Introduction</span></a>
+                                                </li>
+                                                <li>
+                                                    <a href="#"><i class="fa fa-download"></i><span>Installation</span></a>
+                                                </li>
+                                            </ul>
+                                            <ul class="col-md-4 mega-menu-submenu">
+                                                <li>
+                                                    <a href="#"><i class="fa fa-cog"></i><span>T3 Settings</span></a>
+                                                </li>
+                                                <li>
+                                                    <a href="#"><i class="fa fa-desktop"></i><span>Layout System</span></a>
+                                                </li>
+                                            </ul>
+                                            <ul class="col-md-4 mega-menu-submenu">
+                                                <li>
+                                                    <a href="#"><i
+                                                            class="fa fa-magic"></i><span>Customization</span></a>
+                                                </li>
+                                                <li>
+                                                    <a href="#"><i
+                                                            class="fa fa-question-circle"></i><span>FAQs</span></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar navbar-top-links navbar-right mbn">
+                    <li class="dropdown">
+                        <a data-hover="dropdown" href="#" class="dropdown-toggle"><i class="fa fa-bell fa-fw"></i><span
+                                class="badge badge-green">3</span></a>
+                        <ul class="dropdown-menu dropdown-alerts">
+                            <li>
+                                <p>You have 14 new notifications</p>
+                            </li>
+                            <li>
+                                <div class="dropdown-slimscroll">
+                                    <ul>
+                                        <li>
+                                            <a href="extra-user-list.html" target="_blank"><span
+                                                    class="label label-blue"><i class="fa fa-comment"></i></span>New
+                                                Comment<span class="pull-right text-muted small">4 mins ago</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="extra-user-list.html" target="_blank"><span
+                                                    class="label label-violet"><i class="fa fa-twitter"></i></span>3 New
+                                                Followers<span
+                                                        class="pull-right text-muted small">12 mins ago</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="extra-user-list.html" target="_blank"><span
+                                                    class="label label-pink"><i class="fa fa-envelope"></i></span>Message
+                                                Sent<span class="pull-right text-muted small">15 mins ago</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="extra-user-list.html" target="_blank"><span
+                                                    class="label label-green"><i class="fa fa-tasks"></i></span>New Task<span
+                                                    class="pull-right text-muted small">18 mins ago</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="extra-user-list.html" target="_blank"><span
+                                                    class="label label-yellow"><i class="fa fa-upload"></i></span>Server
+                                                Rebooted<span class="pull-right text-muted small">19 mins ago</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="extra-user-list.html" target="_blank"><span
+                                                    class="label label-green"><i class="fa fa-tasks"></i></span>New Task<span
+                                                    class="pull-right text-muted small">2 days ago</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="extra-user-list.html" target="_blank"><span
+                                                    class="label label-pink"><i class="fa fa-envelope"></i></span>Message
+                                                Sent<span class="pull-right text-muted small">5 days ago</span></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="last">
+                                <a href="extra-user-list.html" class="text-right">See all alerts</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown topbar-user">
+                        <a data-hover="dropdown" href="#" class="dropdown-toggle">
+                            <img src="https://s3.amazonaws.com/uifaces/faces/twitter/kolage/48.jpg" alt=""
+                                 class="img-responsive img-circle"/>&nbsp;
+                            <span class="hidden-xs">管理员</span>&nbsp;<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user pull-right">
+                            <li>
+                                <a href="/"><i class="fa fa-key"></i>注销</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!--BEGIN MODAL CONFIG PORTLET-->
+        <div id="modal-config" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                        <h4 class="modal-title">Modal title</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eleifend et nisl eget porta.
+                            Curabitur elementum sem molestie
+                            nisl varius, eget tempus odio molestie. Nunc vehicula sem arcu, eu pulvinar neque cursus
+                            ac. Aliquam ultricies lobortis magna et aliquam. Vestibulum egestas eu urna sed ultricies.
+                            Nullam pulvinar dolor vitae quam dictum condimentum. Integer a sodales elit, eu pulvinar
+                            leo. Nunc nec aliquam nisi, a mollis neque. Ut vel felis quis tellus hendrerit placerat.
+                            Vivamus vel nisl non magna feugiat dignissim sed ut nibh. Nulla elementum, est a pretium
+                            hendrerit, arcu risus luctus augue, mattis aliquet orci ligula eget massa. Sed ut ultricies
+                            felis.
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--END MODAL CONFIG PORTLET-->
+    </div>
+    <!--END TOPBAR-->
+    <div id="wrapper">
+        <!--BEGIN SIDEBAR MENU-->
+        <nav id="sidebar" role="navigation" class="navbar-default navbar-static-side">
+            <div class="sidebar-collapse menu-scroll">
+                <ul id="side-menu" class="nav">
+                    <li class="clearfix"></li>
+                    <li>
+                        <a href="/main"><i class="fa fa-tachometer fa-fw">
+                            <div class="icon-bg bg-orange"></div>
+                        </i><span class="menu-title">监控管理</span></a>
+                    </li>
+                    <li class="active">
+                        <a href="/manager"><i class="fa fa-tachometer fa-fw">
+                            <div class="icon-bg bg-orange"></div>
+                        </i><span class="menu-title">运维管理</span></a>
+                    </li>
+                    <!--<li>
+                        <a href="#"><i class="fa fa-laptop fa-fw"><div class="icon-bg bg-pink"></div></i><span class="menu-title">监控管理</span><span class="fa arrow"></span><span class="label label-yellow">v3.0</span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="frontend-one-page.html"><i class="fa fa-rocket"></i><span class="submenu-title">人员管理</span></a>
+                            </li>
+                        </ul>
+                    </li>-->
+                    <!--li.charts-sum<div id="ajax-loaded-data-sidebar"></div>-->
+                </ul>
+            </div>
+        </nav>
+        <!--END SIDEBAR MENU-->
+        <!--BEGIN PAGE WRAPPER-->
+        <div id="page-wrapper">
+            <!--BEGIN TITLE & BREADCRUMB PAGE-->
+            <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+                <div class="page-header pull-left">
+                    <div class="page-title">服务器列表</div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <!--END TITLE & BREADCRUMB PAGE-->
+            <!--BEGIN CONTENT-->
+            <div class="page-content">
+                <div class="tab-content">
+                    <div class="tab-pane active">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="table-container">
+                                    <div class="row mbl">
+                                        <div class="col-lg-4">
+                                                    <span class="input-group-btn">
+                                                        <button type="button" data-toggle="dropdown"
+                                                                class="btn btn-danger dropdown-toggle">
+                                                                {{ cursysgroup.systemtext }}
+                                                            &nbsp;<span class="caret"></span>
+                                                        </button>
+
+                                                        <ul class="dropdown-menu">
+                                                            <li v-bind:class="{ active: cursysgroup.systemname=='' }">
+                                                                <a v-on:click="changeSysgroup({'systemname':'','systemtext':'全部'})">
+                                                                    <i class="fa fa-tint"></i>&nbsp;
+                                                                    全部
+                                                                </a>
+                                                            </li>
+                                                            <li v-for="item in syslist"
+                                                                v-bind:class="{ active: cursysgroup.systemname==item.systemname }"><a
+                                                                    v-on:click="changeSysgroup(item)">{{ item.systemtext }}</a></li>
+                                                        </ul>
+                                                    </span>
+                                                    <span class="input-group-btn">
+                                                        <button type="button" data-toggle="dropdown"
+                                                                class="btn btn-danger dropdown-toggle">
+                                                                {{ cursys.systemtext }}
+                                                            &nbsp;<span class="caret"></span>
+                                                        </button>
+
+                                                        <ul class="dropdown-menu">
+                                                            <li v-bind:class="{ active: cursys.systemname=='' }">
+                                                                <a v-on:click="changeSys({'systemname':'','systemtext':'全部'})">
+                                                                    <i class="fa fa-tint"></i>&nbsp;
+                                                                    全部
+                                                                </a>
+                                                            </li>
+                                                            <li v-for="item in itemsyslist"
+                                                                v-bind:class="{ active: cursys.systemname==item.systemname }"><a
+                                                                    v-on:click="changeSys(item)">{{ item.systemtext }}</a></li>
+                                                        </ul>
+                                                    </span>
+                                        </div>
+                                        <div class="col-lg-8">
+
+                                        </div>
+                                    </div>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>ip地址</th>
+                                            <th>环境类别</th>
+                                            <th>节点类型</th>
+                                            <th>所属系统</th>
+                                            <th>操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr v-for="item in iplist">
+                                            <td>{{ item.ip }}</td>
+                                            <td>{{ item.systemtype }}</td>
+                                            <td>{{ item.nodetype }}</td>
+                                            <td>{{ item.systembelone }}</td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-info">更多</button>
+                                                    <button type="button" data-toggle="dropdown"
+                                                            class="btn btn-info dropdown-toggle"><span
+                                                            class="caret"></span><span
+                                                            class="sr-only">Toggle Dropdown</span>
+                                                    </button>
+                                                    <ul role="menu" class="dropdown-menu">
+                                                        <template v-for="btn in item.normalCommands">
+                                                            <li>
+                                                                <a v-on:click="doNormalCommand(item,btn)">{{ btn.name }}</a>
+                                                            </li>
+                                                        </template>
+                                                        <li><a v-bind:href="'/static/process.html?ip='+item.ip">进程管理</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--BEGIN FOOTER-->
+        <div id="footer">
+            <div class="copyright">2017 © xx有限公司</div>
+        </div>
+        <!--END FOOTER-->
+        <!--END PAGE WRAPPER-->
+    </div>
+
+    <!--Modal Stackable-->
+    <div id="modal-stackable" tabindex="-1" role="dialog" aria-labelledby="modal-stackable-label" aria-hidden="true"
+         class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-header-primary">
+                    <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                    <h4 id="modal-stackable-label" class="modal-title">{{ normalCommand.mark }}</h4>
+                </div>
+                <div class="modal-body">
+                    <template v-for="item in normalCommand.text">
+                        <p>{{ item }}</p>
+                    </template>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/static/js/jquery-1.10.2.min.js"></script>
+<script src="/static/js/vue.js"></script>
+<script src="/static/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/static/js/jquery-ui.js"></script>
+<!--loading bootstrap js-->
+<script src="/static/vendors/bootstrap/js/bootstrap.min.js"></script>
+<script src="/static/vendors/bootstrap-hover-dropdown/bootstrap-hover-dropdown.js"></script>
+<script src="/static/js/html5shiv.js"></script>
+<script src="/static/js/respond.min.js"></script>
+<script src="/static/vendors/metisMenu/jquery.metisMenu.js"></script>
+<script src="/static/vendors/slimScroll/jquery.slimscroll.js"></script>
+<script src="/static/vendors/jquery-cookie/jquery.cookie.js"></script>
+<script src="/static/vendors/iCheck/icheck.min.js"></script>
+<script src="/static/vendors/iCheck/custom.min.js"></script>
+<script src="/static/vendors/jquery-notific8/jquery.notific8.min.js"></script>
+<script src="/static/vendors/jquery-highcharts/highcharts.js"></script>
+<script src="/static/js/jquery.menu.js"></script>
+<script src="/static/vendors/jquery-pace/pace.min.js"></script>
+<script src="/static/vendors/holder/holder.js"></script>
+<script src="/static/vendors/responsive-tabs/responsive-tabs.js"></script>
+<script src="/static/vendors/jquery-news-ticker/jquery.newsTicker.min.js"></script>
+<script src="/static/vendors/moment/moment-with-locales.js"></script>
+<script src="/static/vendors/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="/static/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+<!--CORE JAVASCRIPT-->
+<script src="/static/js/main.js?v=1"></script>
+<script src="/static/js/index.js?v=1"></script>
+<!--LOADING SCRIPTS FOR PAGE-->
+<script src="/static/js/ui-tabs.js"></script>
+<script>
+    var timer;
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            normalCommand: {},
+            user: '',
+            pass: '',
+            loginstatus: 0,
+            iplist: [],
+            syslist: [],
+            cursysgroup: {'systemname': '', 'systemtext': '全部'},
+            itemsyslist: [],
+            cursys: {'systemname': '', 'systemtext': '全部'}
+        },
+        created: function () {
+            var vm = this;
+            $.ajax({
+                url: '/newsyslist',
+                type: 'GET',
+                dataType: 'json',
+                processData: false,//processData:false,告诉jQuery不要再对data进行处理
+                cache: false,
+                crossDomain: true,
+                success: function (data) {
+                    vm.syslist = data;
+                }
+            });
+            $.ajax({
+                url: '/iplist',
+                type: 'GET',
+                dataType: 'json',
+                processData: false,//processData:false,告诉jQuery不要再对data进行处理
+                cache: false,
+                crossDomain: true,
+                success: function (data) {
+                    Vue.set(vm, 'iplist', data);
+                }
+            });
+
+
+        },
+        methods: {
+            changeSysgroup: function (item) {
+                this.cursysgroup = item;
+                var vm = this;
+                console.log(item.items);
+                Vue.set(vm, 'itemsyslist', item.items);
+            },
+            changeSys: function (item) {
+                clearTimeout(timer);
+                this.cursys = item;
+                var vm = this;
+                var url = item.systemname ? '/iplist/' + item.systemname : '/iplist';
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    dataType: 'json',
+                    processData: false,//processData:false,告诉jQuery不要再对data进行处理
+                    cache: false,
+                    crossDomain: true,
+                    success: function (data) {
+                        Vue.set(vm, 'iplist', data);
+                    }
+                });
+            },
+            doNormalCommand: function (item, btn) {
+                var url = "/donormal";
+                if (item.ip) {
+                    url += "/" + item.ip;
+                }
+                if (btn.type) {
+                    url += "/" + btn.type;
+                }
+                var vm = this;
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    dataType: 'json',
+                    processData: false,//processData:false,告诉jQuery不要再对data进行处理
+                    cache: false,
+                    crossDomain: true,
+                    success: function (data) {
+                        console.log(data);
+                        vm.normalCommand = data;
+                        $("#modal-stackable").modal("show");
+                    }
+                });
+            }
+        }
+
+    });
+    $(document).ready(function () {
+        $('#login-modal').modal({backdrop: 'static', keyboard: false, show: true});
+    })
+</script>
+</body>
+
+</html>

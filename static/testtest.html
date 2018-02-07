@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Bootstrap 实例 - 水平表单</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="http://cdn.bootcss.com/moment.js/2.18.1/moment.min.js"></script>
+    <script src="http://cdn.bootcss.com/moment.js/2.18.1/locale/zh-cn.js"></script>
+    <style>
+        .activeClass {
+            background: green;
+            color: #fff;
+        }
+
+        .errorClass {
+            background: red;
+        }
+
+        .errorClass a {
+            color: yellow;
+        }
+
+        .subtext {
+            margin-right: 2px;
+        }
+        .td{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div id="app" class="container">
+    <table class="table table-bordered">
+        <caption><h2>服务器列表</h2> 当前时间:<span v-text="time"></span></caption>
+        <thead>
+        <tr>
+            <th>ip地址</th>
+            <th>网络</th>
+			<th>文件系统</th>
+            <th>PMTS</th>
+            <th>PMTS用户</th>
+			<th>PMTS探测</th>
+            <th>TLQ</th>
+			<th>MQ</th>
+			<th>本地队列深度</th>
+			<th>WAS</th>
+            <th>CICS</th>
+            <th>DB2</th>
+            <th>ORACLE</th>
+			<th>LOGSERV</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="item in iplist">
+            <td>{{ item.ip }}</td>
+			<td v-bind:class="item.info.NETWORK.status==1?'activeClass':'errorClass'" class="dropdown">
+                <a href="#" v-if="item.info.NETWORK.status!=1" href="#" class="dropdown-toggle"
+                   data-toggle="dropdown">
+                    <span class="subtext" v-for="subtext in item.info.NETWORK.text">{{ subtext }}</span>
+
+                </a>
+                <ul class="dropdown-menu">
+                    <li v-for="ex in item.info.NETWORK.exception">{{ ex }}</li>
+                </ul>
+                <span v-if="item.info.NETWORK.status==1"><span class="subtext"
+                                                                  v-for="subtext in item.info.NETWORK.text">{{ subtext }}</span></span>
+            </td>
+
+			<td v-bind:class="item.info.filesystem.status==1?'activeClass':'errorClass'" class="dropdown">
+                <a href="#" v-if="item.info.filesystem.status!=1" href="#" class="dropdown-toggle"
+                   data-toggle="dropdown">
+                    <span class="subtext" v-for="subtext in item.info.filesystem.text">{{ subtext }}</span>
+
+                </a>
+                <ul class="dropdown-menu">
+                    <li v-for="ex in item.info.filesystem.exception">{{ ex }}</li>
+                </ul>
+                <span v-if="item.info.filesystem.status==1"><span class="subtext"
+                                                                  v-for="subtext in item.info.filesystem.text">{{ subtext }}</span></span>
+            </td>
+
+			<td v-bind:class="item.info.PMTS.status==1?'activeClass':'errorClass'" class="dropdown">
+                <a v-if="item.info.PMTS.status!=1" class="dropdown-toggle" data-toggle="dropdown">
+                    <span class="subtext" v-for="subtext in item.info.PMTS.text">{{ subtext }}</span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li v-for="ex in item.info.PMTS.exception">{{ ex }}</li>
+                </ul>
+                <span v-if="item.info.PMTS.status==1">
+                    <span class="subtext" v-for="subtext in item.info.PMTS.text">{{ subtext }}</span>
+                </span>
+            </td>
+            <td v-bind:class="item.info.PMTSROOT.status==1?'activeClass':'errorClass'" class="dropdown">
+                <a href="#" v-if="item.info.PMTSROOT.status!=1" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <span class="subtext" v-for="subtext in item.info.PMTSROOT.text">{{ subtext }}</span>
+
+                </a>
+                <ul class="dropdown-menu">
+                    <li v-for="ex in item.info.PMTSROOT.exception">{{ ex }}</li>
+                </ul>
+                <span v-if="item.info.PMTSROOT.status==1"><span class="subtext"
+                                                                v-for="subtext in item.info.PMTSROOT.text">{{ subtext }}</span></span>
+            </td>
+
+			<td v-bind:class="item.info.PMTSDETECT.status==1?'activeClass':'errorClass'" class="dropdown">
+                <a href="#" v-if="item.info.PMTSDETECT.status!=1" href="#" class="dropdown-toggle"
+                   data-toggle="dropdown">
+                    <span class="subtext" v-for="subtext in item.info.PMTSDETECT.text">{{ subtext }}</span>
+
+                </a>
+                <ul class="dropdown-menu">
+                    <li v-for="ex in item.info.PMTSDETECT.exception">{{ ex }}</li>
+                </ul>
+                <span v-if="item.info.PMTSDETECT.status==1"><span class="subtext"
+                                                                  v-for="subtext in item.info.PMTSDETECT.text">{{ subtext }}</span></span>
+            </td>
+
+
+			<td v-bind:class="item.info.TLQ.status==1?'activeClass':'errorClass'" class="dropdown">
+                <a href="#" v-if="item.info.TLQ.status!=1" href="#" class="dropdown-toggle"
+                   data-toggle="dropdown">
+                    <span class="subtext" v-for="subtext in item.info.TLQ.text">{{ subtext }}</span>
+
+                </a>
+                <ul class="dropdown-menu">
+                    <li v-for="ex in item.info.TLQ.exception">{{ ex }}</li>
+                </ul>
+                <span v-if="item.info.TLQ.status==1"><span class="subtext"
+                                                                 v-for="subtext in item.info.TLQ.text">{{ subtext }}</span></span>
+            </td>
+			<td v-bind:class="item.info.MQ.status==1?'activeClass':'errorClass'" class="dropdown">
+                <a href="#" v-if="item.info.MQ.status!=1" href="#" class="dropdown-toggle"
+                   data-toggle="dropdown">
+                    <span class="subtext" v-for="subtext in item.info.MQ.text">{{ subtext }}</span>
+
+                </a>
+                <ul class="dropdown-menu">
+                    <li v-for="ex in item.info.MQ.exception">{{ ex }}</li>
+                </ul>
+                <span v-if="item.info.MQ.status==1"><span class="subtext"
+                                                                  v-for="subtext in item.info.MQ.text">{{ subtext }}</span></span>
+            </td>
+
+
+			<td v-bind:class="item.info.depth.status==1?'activeClass':'errorClass'" class="dropdown">
+                <a href="#" v-if="item.info.depth.status!=1" href="#" class="dropdown-toggle"
+                   data-toggle="dropdown">
+                    <span class="subtext" v-for="subtext in item.info.depth.text">{{ subtext }}</span>
+
+                </a>
+                <ul class="dropdown-menu">
+                    <li v-for="ex in item.info.depth.exception">{{ ex }}</li>
+                </ul>
+                <span v-if="item.info.depth.status==1"><span class="subtext"
+                                                                  v-for="subtext in item.info.depth.text">{{ subtext }}</span></span>
+            </td>
+
+			<td v-bind:class="item.info.WAS.status==1?'activeClass':'errorClass'" class="dropdown">
+                <a href="#" v-if="item.info.WAS.status!=1" href="#" class="dropdown-toggle"
+                   data-toggle="dropdown">
+                    <span class="subtext" v-for="subtext in item.info.WAS.text">{{ subtext }}</span>
+
+                </a>
+                <ul class="dropdown-menu">
+                    <li v-for="ex in item.info.WAS.exception">{{ ex }}</li>
+                </ul>
+                <span v-if="item.info.WAS.status==1"><span class="subtext"
+                                                                  v-for="subtext in item.info.WAS.text">{{ subtext }}</span></span>
+            </td>
+
+			<td v-bind:class="item.info.CICS.status==1?'activeClass':'errorClass'" class="dropdown">
+                <a href="#" v-if="item.info.CICS.status!=1" href="#" class="dropdown-toggle"
+                   data-toggle="dropdown">
+                    <span class="subtext" v-for="subtext in item.info.CICS.text">{{ subtext }}</span>
+
+                </a>
+                <ul class="dropdown-menu">
+                    <li v-for="ex in item.info.CICS.exception">{{ ex }}</li>
+                </ul>
+                <span v-if="item.info.CICS.status==1"><span class="subtext"
+                                                                  v-for="subtext in item.info.CICS.text">{{ subtext }}</span></span>
+            </td>
+
+
+			<td v-bind:class="item.info.DB2.status==1?'activeClass':'errorClass'" class="dropdown">
+                <a href="#" v-if="item.info.DB2.status!=1" href="#" class="dropdown-toggle"
+                   data-toggle="dropdown">
+                    <span class="subtext" v-for="subtext in item.info.DB2.text">{{ subtext }}</span>
+
+                </a>
+                <ul class="dropdown-menu">
+                    <li v-for="ex in item.info.DB2.exception">{{ ex }}</li>
+                </ul>
+                <span v-if="item.info.DB2.status==1"><span class="subtext"
+                                                                  v-for="subtext in item.info.DB2.text">{{ subtext }}</span></span>
+            </td>
+
+
+			<td v-bind:class="item.info.ORACLE.status==1?'activeClass':'errorClass'" class="dropdown">
+                <a href="#" v-if="item.info.ORACLE.status!=1" href="#" class="dropdown-toggle"
+                   data-toggle="dropdown">
+                    <span class="subtext" v-for="subtext in item.info.ORACLE.text">{{ subtext }}</span>
+
+                </a>
+                <ul class="dropdown-menu">
+                    <li v-for="ex in item.info.ORACLE.exception">{{ ex }}</li>
+                </ul>
+                <span v-if="item.info.ORACLE.status==1"><span class="subtext"
+                                                                  v-for="subtext in item.info.ORACLE.text">{{ subtext }}</span></span>
+            </td>
+
+
+			<td v-bind:class="item.info.LOGSERV.status==1?'activeClass':'errorClass'" class="dropdown">
+                <a href="#" v-if="item.info.LOGSERV.status!=1" href="#" class="dropdown-toggle"
+                   data-toggle="dropdown">
+                    <span class="subtext" v-for="subtext in item.info.LOGSERV.text">{{ subtext }}</span>
+
+                </a>
+                <ul class="dropdown-menu">
+                    <li v-for="ex in item.info.LOGSERV.exception">{{ ex }}</li>
+                </ul>
+                <span v-if="item.info.LOGSERV.status==1"><span class="subtext"
+                                                                  v-for="subtext in item.info.LOGSERV.text">{{ subtext }}</span></span>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            time:'',
+            iplist: []
+        },
+        created: function () {
+            var vm = this;
+
+            setTimeout(function cycle() {
+                $.ajax({
+                    url: '/iplist',
+                    type: 'GET',
+                    dataType: 'json',
+                    processData: false,//processData:false,告诉jQuery不要再对data进行处理
+                    cache: false,
+                    crossDomain: true,
+                    success: function (data) {
+                        vm.iplist = data;
+                        vm.time=moment().format('YYYY-MM-DD HH:mm:ss');
+                    }
+                });
+                setTimeout(cycle, 5000)
+            },0)
+
+        }
+    });
+</script>
+</body>
+</html>

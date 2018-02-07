@@ -1,0 +1,33 @@
+[
+  {
+    "ip": "115.159.29.187",
+    "port": 22,
+    "usr": "root",
+    "pwd": "gutun.net",
+	"systemtype":"R1",
+	"nodetype":"business",
+	"systembelone":"ECDS",
+    "system": "ECDSR2",
+    "command": "sh test22.sh",
+	"normalCommands":[{"type":"depthquery","name":"队列深度查询","command":"sh /home/sysopr/sysopr_new/json/depthquery.sh"},{"type":"depthclear","name":"队列深度清理","command":"sh /home/sysopr/sysopr_new/json/depthclear.sh"},{"type":"channalstatus","name":"通道状态查询","command":"sh /home/sysopr/sysopr_new/json/channalstatus.sh"},{"type":"channalreset","name":"通道reset","command":"sh /home/sysopr/sysopr_new/json/channalreset.sh"},{"type":"channalstop","name":"参与者通道停止","command":"sh /home/sysopr/sysopr_new/json/channalstop.sh"},{"type":"channalstart","name":"参与者通道启动","command":"sh /home/sysopr/sysopr_new/json/channalstart.sh"}],
+	"processCommands":[{"type":"mq","name":"MQ进程","button":[{"type":"stop","name":"MQ进程停止","command":"sh /home/sysopr/sysopr_new/json/mqstop.sh"},{"type":"start","name":"MQ进程启动","command":"sh /home/sysopr/sysopr_new/json/mqstart.sh"},{"type":"clear","name":"MQ进程清理","command":"sh /home/sysopr/sysopr_new/json/mqclear.sh"}]},{"type":"was","name":"was进程","button":[{"type":"stop","name":"was进程停止","command":"sh /home/sysopr/sysopr_new/json/wasstop.sh"},{"type":"start","name":"was进程启动","command":"sh /home/sysopr/sysopr_new/json/wasstart.sh"},{"type":"clear","name":"was进程清理","command":"sh /home/sysopr/sysopr_new/json/wasclear.sh"}]},{"type":"cics","name":"cics进程","button":[{"type":"stop","name":"cics进程停止","command":"sh /home/sysopr/sysopr_new/json/cicsstop.sh"},{"type":"start","name":"cics进程启动","command":"sh /home/sysopr/sysopr_new/json/cicsstart.sh"},{"type":"clear","name":"cics进程清理","command":"sh /home/sysopr/sysopr_new/json/cicsclear.sh"}]}],
+    "date": "",
+    "info": {}
+  },
+  {
+    "ip": "115.159.29.187",
+    "port": 22,
+    "usr": "root",
+    "pwd": "gutun.net",
+	"systemtype":"R2",
+	"nodetype":"business",
+	"systembelone":"CIS",
+    "system": "ECDSR2",
+    "command": "sh test22.sh",
+	"normalCommands":[{"type":"depthquery","name":"队列深度查询","command":"sh /home/sysopr/sysopr_new/json/depthquery.sh"},{"type":"depthclear","name":"队列深度清理","command":"sh /home/sysopr/sysopr_new/json/depthclear.sh"},{"type":"channalstatus","name":"通道状态查询","command":"sh /home/sysopr/sysopr_new/json/channalstatus.sh"},{"type":"channalreset","name":"通道reset","command":"sh /home/sysopr/sysopr_new/json/channalreset.sh"},{"type":"channalstop","name":"参与者通道停止","command":"sh /home/sysopr/sysopr_new/json/channalstop.sh"},{"type":"channalstart","name":"参与者通道启动","command":"sh /home/sysopr/sysopr_new/json/channalstart.sh"}],
+	"process":["mq","cics","was"],
+	"processCommands":[{"type":"mq","name":"MQ进程","button":[{"type":"stop","name":"MQ进程停止","command":"sh /home/sysopr/sysopr_new/json/mqstop.sh"},{"type":"start","name":"MQ进程启动","command":"sh /home/sysopr/sysopr_new/json/mqstart.sh"},{"type":"clear","name":"MQ进程清理","command":"sh /home/sysopr/sysopr_new/json/mqclear.sh"}]},{"type":"was","name":"was进程","button":[{"type":"stop","name":"was进程停止","command":"sh /home/sysopr/sysopr_new/json/wasstop.sh"},{"type":"start","name":"was进程启动","command":"sh /home/sysopr/sysopr_new/json/wasstart.sh"},{"type":"clear","name":"was进程清理","command":"sh /home/sysopr/sysopr_new/json/wasclear.sh"}]}],
+    "date": "",
+    "info": {}
+  }
+]

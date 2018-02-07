@@ -1,0 +1,18 @@
+[
+  {
+     "systemname":"ECDS",
+     "systemtext":"ECDS测试环境"
+  },
+  {
+     "systemname":"CNAPS",
+     "systemtext":"CNAPS测试环境"
+  },
+  {
+     "systemname":"CIS",
+     "systemtext":"CIS测试环境"
+  },
+  {
+     "systemname":"CIPS",
+     "systemtext":"CIPS测试环境"
+  }
+]

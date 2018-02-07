@@ -1,0 +1,30 @@
+[
+  {
+    "systemname": "R1",
+    "systemtext": "R1环境",
+    "items": [
+      {
+        "systemname": "ECDS",
+        "systemtext": "ECDS测试环境"
+      },
+      {
+        "systemname": "CNAPS",
+        "systemtext": "CNAPS测试环境"
+      }
+    ]
+  },
+  {
+    "systemname": "R2",
+    "systemtext": "R2环境",
+    "items": [
+      {
+        "systemname": "CIS",
+        "systemtext": "CIS测试环境"
+      },
+      {
+        "systemname": "CIPS",
+        "systemtext": "CIPS测试环境"
+      }
+    ]
+  }
+]

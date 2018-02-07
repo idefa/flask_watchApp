@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Bootstrap 实例 - 水平表单</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        .activeClass {
+            background: green;
+            color: #fff;
+        }
+
+        .errorClass {
+            background: red;
+        }
+
+        .errorClass a {
+            color: yellow;
+        }
+
+        .subtext {
+            margin-right: 2px;
+        }
+    </style>
+</head>
+<body>
+<div id="app" class="container">
+    <table class="table table-bordered">
+        <caption><h2>服务器列表</h2></caption>
+        <thead>
+        <tr>
+            <th>ip地址</th>
+            <th>pmtsstatus</th>
+            <th>pmtsroot</th>
+            <th>tlqstatus</th>
+            <th>filesystem</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="item in iplist">
+            <td>{{ item.ip }}</td>
+            <td v-bind:class="item.info.pmtsstatus.status==1?'activeClass':'errorClass'" class="dropdown">
+                <a v-if="item.info.pmtsstatus.status!=1" class="dropdown-toggle" data-toggle="dropdown">
+                    <span class="subtext" v-for="subtext in item.info.pmtsstatus.text">{{ subtext }}</span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li v-for="ex in item.info.pmtsstatus.exception">{{ ex }}</li>
+                </ul>
+                <span v-if="item.info.pmtsstatus.status==1">
+                    <span class="subtext" v-for="subtext in item.info.pmtsstatus.text">{{ subtext }}</span>
+                </span>
+            </td>
+            <td v-bind:class="item.info.pmtsroot.status==1?'activeClass':'errorClass'" class="dropdown">
+                <a href="#" v-if="item.info.pmtsroot.status!=1" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <span class="subtext" v-for="subtext in item.info.pmtsroot.text">{{ subtext }}</span>
+
+                </a>
+                <ul class="dropdown-menu">
+                    <li v-for="ex in item.info.pmtsroot.exception">{{ ex }}</li>
+                </ul>
+                <span v-if="item.info.pmtsroot.status==1"><span class="subtext"
+                                                                v-for="subtext in item.info.pmtsroot.text">{{ subtext }}</span></span>
+            </td>
+            <td v-bind:class="item.info.tlqstatus.status==1?'activeClass':'errorClass'" class="dropdown">
+                <a href="#" v-if="item.info.tlqstatus.status!=1" href="#" class="dropdown-toggle"
+                   data-toggle="dropdown">
+                    <span class="subtext" v-for="subtext in item.info.pmtsroot.text">{{ subtext }}</span>
+
+                </a>
+                <ul class="dropdown-menu">
+                    <li v-for="ex in item.info.pmtsroot.exception">{{ ex }}</li>
+                </ul>
+                <span v-if="item.info.tlqstatus.status==1"><span class="subtext"
+                                                                 v-for="subtext in item.info.tlqstatus.text">{{ subtext }}</span></span>
+            </td>
+            <td v-bind:class="item.info.filesystem.status==1?'activeClass':'errorClass'" class="dropdown">
+                <a href="#" v-if="item.info.filesystem.status!=1" href="#" class="dropdown-toggle"
+                   data-toggle="dropdown">
+                    <span class="subtext" v-for="subtext in item.info.pmtsroot.text">{{ subtext }}</span>
+
+                </a>
+                <ul class="dropdown-menu">
+                    <li v-for="ex in item.info.pmtsroot.exception">{{ ex }}</li>
+                </ul>
+                <span v-if="item.info.filesystem.status==1"><span class="subtext"
+                                                                  v-for="subtext in item.info.filesystem.text">{{ subtext }}</span></span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            iplist: []
+        },
+        created: function () {
+            var vm = this;
+            $.ajax({
+                url: '/iplist',
+                type: 'GET',
+                dataType: 'json',
+                processData: false,//processData:false,告诉jQuery不要再对data进行处理
+                cache: false,
+                crossDomain: true,
+                success: function (data) {
+                    vm.iplist = data;
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>

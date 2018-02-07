@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>监控</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.js"></script>
+    <script src="/static/js/moment.min.js"></script>
+    <script src="/static/js/locale/zh-cn.js"></script>
+    <style>
+        table th, table td {
+            font-size: 11px;
+            white-space: nowrap;
+        }
+
+        .subtext {
+            margin-right: 2px;
+        }
+
+        .status {
+            display: block;
+            float: right;
+            list-style: none;
+        }
+
+        .status li {
+            float: left;
+            margin-right: 10px;
+            display: inline-block;
+            height: 22px;
+            line-height: 21px;
+        }
+
+        .status li span {
+            display: inline-block;
+            height: 21px;
+            width: 30px;
+            border: 1px solid #ddd;
+        }
+
+        .normal {
+            background: #58A554;
+            color: #EFE1D8;
+        }
+
+        .error {
+            background: #E26168;
+        }
+
+        .error a {
+            color: #fff;
+        }
+
+        .notwork {
+            background: #dddddd;
+        }
+
+        .view {
+            background: #ffffff;
+        }
+
+        .network {
+            background: #E26168;
+            color: #fff;
+        }
+
+        .network a {
+            color: #fff;
+        }
+
+        .dropdown-menu {
+            width: 400px;
+            line-height: 21px;
+        }
+    </style>
+</head>
+<body>
+<div id="app" class="container">
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist" style="margin-top: 20px;">
+        <li role="presentation" class="active"><a href="#watch" aria-controls="home" role="tab" data-toggle="tab">监控</a>
+        </li>
+        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">日志清理</a></li>
+        <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">进程管理</a></li>
+        <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">日常操作</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="watch">
+            <!-- Single button -->
+
+            <table class="table table-bordered">
+                <caption><h2>服务器列表</h2>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                            {{ cursys.systemtext }} <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li v-bind:class="{ active: cursys.systemname=='' }"><a
+                                    v-on:click="changeSys({'systemname':'','systemtext':'全部'})">全部</a></li>
+                            <li v-for="item in syslist"
+                                v-bind:class="{ active: cursys.systemname==item.systemname }"><a
+                                    v-on:click="changeSys(item)">{{ item.systemtext }}</a></li>
+                        </ul>
+                    </div>
+                    刷新时间:<span v-text="time"></span>
+                    <ul class="status">
+                        <li><span class="normal"></span>正常</li>
+                        <li><span class="error"></span>异常</li>
+                        <li><span class="notwork"></span>不可用</li>
+                        <li><span class="network"></span>不可达</li>
+                        <li><span class="view"></span>查看详情</li>
+                    </ul>
+                </caption>
+                <thead>
+                <tr>
+                    <th>ip地址</th>
+                    <th>返回时间</th>
+                    <th>文件系统</th>
+                    <th>PMTS</th>
+                    <th>PMTS探测</th>
+                    <th>TLQ</th>
+                    <th>MQ</th>
+                    <th>本地队列深度</th>
+                    <th>WAS</th>
+                    <th>CICS</th>
+                    <th>DB2</th>
+                    <th>ORACLE</th>
+                    <th>LOGSERV</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="item in iplist">
+                    <td>{{ item.ip }}</td>
+                    <td>{{ item.date }}</td>
+                    <template v-if="JSON.stringify(item.info)=='{}'">
+                        <td class="network"><a href="#">不可达</a></td>
+                        <td class="network"><a href="#">不可达</a></td>
+                        <td class="network"><a href="#">不可达</a></td>
+                        <td class="network"><a href="#">不可达</a></td>
+                        <td class="network"><a href="#">不可达</a></td>
+                        <td class="network"><a href="#">不可达</a></td>
+                        <td class="network"><a href="#">不可达</a></td>
+                        <td class="network"><a href="#">不可达</a></td>
+                        <td class="network"><a href="#">不可达</a></td>
+                        <td class="network"><a href="#">不可达</a></td>
+                        <td class="network"><a href="#">不可达</a></td>
+                    </template>
+                    <template v-if="JSON.stringify(item.info)!='{}'">
+                        <template
+                                v-for="key in ['filesystem','PMTS','PMTSDETECT','TLQ','MQ','depth','WAS','CICS','DB2','ORACLE','LOGSERV']">
+
+                            <template v-if="item.info[key].status==0">
+                                <td class="error dropdown">
+                                    <a href="#" v-if="item.info[key].status!=1" href="#" class="dropdown-toggle"
+                                       data-toggle="dropdown">
+                                        <span class="subtext"
+                                              v-for="subtext in item.info[key].text">{{ subtext }}</span>
+
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li v-for="ex in item.info[key].exception">{{ ex }}</li>
+                                    </ul>
+                                </td>
+                            </template>
+
+                            <template v-if="item.info[key].status==1">
+                                <td class="normal dropdown">
+                                    <span><span class="subtext"
+                                                v-for="subtext in item.info[key].text">{{ subtext }}</span></span>
+                                </td>
+                            </template>
+
+                            <template v-if="item.info[key].status==2">
+                                <td class="notwork dropdown">
+                                    <span><span class="subtext"
+                                                v-for="subtext in item.info[key].text">{{ subtext }}</span></span>
+                                </td>
+                            </template>
+
+                            <template v-if="item.info[key].status==3">
+                                <td class="view dropdown">
+                                    <a href="#" class="dropdown-toggle"
+                                       data-toggle="dropdown">
+                                        <span class="subtext"
+                                              v-for="subtext in item.info[key].text">{{ subtext }}</span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li v-for="ex in item.info[key].exception">{{ ex }}</li>
+                                    </ul>
+                                </td>
+                            </template>
+                        </template>
+
+                    </template>
+                </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+        <div role="tabpanel" class="tab-pane" id="profile">...</div>
+        <div role="tabpanel" class="tab-pane" id="messages">...</div>
+        <div role="tabpanel" class="tab-pane" id="settings">...</div>
+    </div>
+</div>
+<script src="/static/js/vue.js"></script>
+<script>
+    var timer;
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            time: '',
+            user: '',
+            pass: '',
+            loginstatus: 0,
+            iplist: [],
+            syslist: [],
+            cursys: {'systemname': '', 'systemtext': '全部'}
+        },
+        watch: {
+            iplist: {
+                handler: function (val, oldVal) {
+
+                },
+                deep: true
+            }
+        },
+        created: function () {
+            var vm = this;
+            $.ajax({
+                url: '/syslist',
+                type: 'GET',
+                dataType: 'json',
+                processData: false,//processData:false,告诉jQuery不要再对data进行处理
+                cache: false,
+                crossDomain: true,
+                success: function (data) {
+                    vm.syslist = data;
+                }
+            });
+
+            $.ajax({
+                url: '/iplist',
+                type: 'GET',
+                dataType: 'json',
+                processData: false,//processData:false,告诉jQuery不要再对data进行处理
+                cache: false,
+                crossDomain: true,
+                success: function (data) {
+                    vm.iplist = data;
+                    vm.time = moment().format('YYYY-MM-DD HH:mm:ss');
+                    timer = setTimeout(function cycle() {
+                        for (var i = 0; i < vm.iplist.length; i++) {
+                            var a = function () {
+                                var index = i;
+                                $.ajax({
+                                    url: '/ipinfo/' + vm.iplist[index].ip,
+                                    type: 'GET',
+                                    dataType: 'json',
+                                    processData: false,//processData:false,告诉jQuery不要再对data进行处理
+                                    cache: false,
+                                    crossDomain: true,
+                                    success: function (ipinfo) {
+                                        //console.log(index+''+ipinfo.ip);
+                                        ipinfo.date = moment().format('HH:mm:ss');
+                                        Vue.set(vm.iplist, index, ipinfo);
+                                    }
+                                });
+                            }
+                            a();
+                        }
+                        timer = setTimeout(cycle, 10000);
+                    }, 0);
+
+                }
+            });
+
+
+        },
+        methods: {
+            changeSys: function (item) {
+                clearTimeout(timer);
+                this.cursys = item;
+                var vm = this;
+                var url = item.systemname ? '/iplist/' + item.systemname : '/iplist';
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    dataType: 'json',
+                    processData: false,//processData:false,告诉jQuery不要再对data进行处理
+                    cache: false,
+                    crossDomain: true,
+                    success: function (data) {
+                        console.log(data);
+                        Vue.set(vm, 'iplist', data);
+                        Vue.set(vm, 'time', moment().format('YYYY-MM-DD HH:mm:ss'));
+                        timer = setTimeout(function cycle() {
+                            for (var i = 0; i < vm.iplist.length; i++) {
+                                var a = function () {
+                                    var index = i;
+                                    $.ajax({
+                                        url: '/ipinfo/' + vm.iplist[index].ip,
+                                        type: 'GET',
+                                        dataType: 'json',
+                                        processData: false,//processData:false,告诉jQuery不要再对data进行处理
+                                        cache: false,
+                                        crossDomain: true,
+                                        success: function (ipinfo) {
+                                            //console.log(index+''+ipinfo.ip);
+                                            ipinfo.date = moment().format('HH:mm:ss');
+                                            Vue.set(vm.iplist, index, ipinfo);
+                                        }
+                                    });
+                                }
+                                a();
+                            }
+                            timer = setTimeout(cycle, 10000);
+                        }, 0);
+                    }
+                });
+            }
+        }
+
+    });
+    $(document).ready(function () {
+        $('#login-modal').modal({backdrop: 'static', keyboard: false, show: true});
+    })
+</script>
+</body>
+</html>
